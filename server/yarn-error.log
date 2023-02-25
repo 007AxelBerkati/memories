@@ -1,0 +1,47 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\acer\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add body-parese cors express mongoose
+
+PATH: 
+  C:\Program Files\Common Files\Oracle\Java\javapath;C:\Python310\Scripts\;C:\Python310\;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Python27\;C:\Python27\Scripts;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files\Java\jdk1.8.0_211\bin;c:\Users\acer\AppData\Local\Android\Sdk\platform-tools;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\OpenJDK\openjdk-8u312-b07\bin;C:\Program Files\OpenJDK\openjdk-11.0.14.1_1\bin;C:\Program Files\Cloudflare\Cloudflare WARP\;C:\Program Files\nodejs\;D:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Program Files\MongoDB\Server\6.0\bin\;c:\Users\acer\AppData\Local\Android\Sdk\tools;C:\Users\acer\AppData\Local\Microsoft\WindowsApps;C:\Users\acer\AppData\Local\Programs\Microsoft VS Code\bin;c:\Users\acer\AppData\Local\Android\Sdk\platform-tools;C:\Users\acer\AppData\Local\GitHubDesktop\bin;C:\ProgramData\acer\GitHubDesktop\bin;C:\ProgramData\Acer\GitHubDesktop\bin;C:\Users\acer\AppData\Local\Android\Sdk\platform-tools;C:\Users\acer\AppData\Local\Android\Sdk\emulator;C:\Users\acer\AppData\Roaming\npm;D:\flutterSDK\flutter\bin;C:\Users\acer\AppData\Local\Pub\Cache\bin;C:\Users\acer\AppData\Roaming\Composer\vendor\bin;C:\Program Files\MongoDB\Server\6.0\bin\;
+
+Yarn version: 
+  1.22.17
+
+Node version: 
+  16.17.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/body-parese: Not found
+      at Request.params.callback [as _callback] (C:\Users\acer\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:67029:18)
+      at Request.self.callback (C:\Users\acer\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140883:22)
+      at Request.emit (node:events:513:28)
+      at Request.<anonymous> (C:\Users\acer\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141855:10)
+      at Request.emit (node:events:513:28)
+      at IncomingMessage.<anonymous> (C:\Users\acer\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141777:12)
+      at Object.onceWrapper (node:events:627:28)
+      at IncomingMessage.emit (node:events:525:35)
+      at endReadableNT (node:internal/streams/readable:1358:12)
+      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+
+npm manifest: 
+  {
+    "name": "server",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
