@@ -12,7 +12,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_ALL', payload: null });
+    dispatch(getPosts());
   }, [dispatch]);
 
   return (
