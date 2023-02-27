@@ -1,13 +1,23 @@
 import { CREATE, FETCH_ALL } from '../types';
 
-export const postReducer = (posts = [], action) => {
+const initialStatePost = {
+  posts: [],
+  loading: false,
+};
+
+export const postReducer = (state = initialStatePost, action) => {
   switch (action.type) {
     case FETCH_ALL:
-      return action.payload;
+      return {
+        ...state,
+        posts: action.payload,
+      };
     case CREATE:
-      return [...posts, action.payload];
-
+      return {
+        ...state,
+        posts: [...state.posts, action.payload],
+      };
     default:
-      return posts;
+      return state;
   }
 };
