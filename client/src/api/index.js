@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:5000/posts';
+const url = 'https://memorize-kappa.vercel.app/posts';
 
 export const fetchPosts = () => axios.get(url);
 
