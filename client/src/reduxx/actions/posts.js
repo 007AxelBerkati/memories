@@ -1,5 +1,5 @@
 import * as api from '../../api';
-import { CREATE, FETCH_ALL, LOADING, UPDATE } from '../types';
+import { CREATE, DELETE, FETCH_ALL, LIKE, LOADING, UPDATE } from '../types';
 
 // Action Creators
 export const getPosts = () => async (dispatch) => {
@@ -36,5 +36,25 @@ export const updatePost = (id, post) => async (dispatch) => {
   } catch (error) {
     console.log(error);
     dispatch({ type: LOADING, loading: true });
+  }
+};
+
+export const deletePost = (id) => async (dispatch) => {
+  try {
+    await api.deletePost(id);
+
+    dispatch({ type: DELETE, payload: id });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const likePost = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.likePost(id);
+
+    dispatch({ type: LIKE, payload: data });
+  } catch (error) {
+    console.log(error);
   }
 };

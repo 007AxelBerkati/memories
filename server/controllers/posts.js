@@ -88,5 +88,3 @@ export const likePost = async (req, res) => {
 
   res.json(updatedPost);
 };
-
-export default router;
