@@ -19,7 +19,6 @@ export const postReducer = (state = initialStatePost, action) => {
       };
 
     case UPDATE:
-    case LIKE:
       return {
         ...state,
         posts: state.posts.map((post) =>
@@ -31,6 +30,14 @@ export const postReducer = (state = initialStatePost, action) => {
       return {
         ...state,
         posts: state.posts.filter((post) => post._id !== action.payload),
+      };
+
+    case LIKE:
+      return {
+        ...state,
+        posts: state.posts.map((post) =>
+          post._id === action.payload._id ? action.payload : post
+        ),
       };
 
     default:
