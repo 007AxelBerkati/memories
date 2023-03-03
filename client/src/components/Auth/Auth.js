@@ -10,10 +10,19 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import React, { useState } from 'react';
 import Input from './Input';
 import useStyles from './styles';
+import { GoogleLogin } from '@react-oauth/google';
+import jwt_decode from 'jwt-decode';
+import { useDispatch } from 'react-redux';
+import { AUTH } from '../../reduxx/types';
+import { useNavigate } from 'react-router-dom';
 
 const Auth = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const classes = useStyles();
 
   const handleSubmit = () => {};
@@ -27,6 +36,20 @@ const Auth = () => {
   const switchMode = () => {
     setIsSignUp((prevIsSignUp) => !prevIsSignUp);
     handleShowPassword(false);
+  };
+
+  const googleSuccess = async (credentialResponse) => {
+    const credential = credentialResponse?.credential;
+    const dataLogin = jwt_decode(credential);
+
+    try {
+      dispatch({ type: AUTH, data: { dataLogin, credential } });
+      navigate('/');
+    } catch (error) {}
+  };
+
+  const googleFailed = () => {
+    console.log('Login Failed');
   };
 
   return (
@@ -93,6 +116,7 @@ const Auth = () => {
               </Button>
             </Grid>
           </Grid>
+          <GoogleLogin onSuccess={googleSuccess} onError={googleFailed} />
         </form>
       </Paper>
     </Container>
