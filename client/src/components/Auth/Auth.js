@@ -15,19 +15,40 @@ import jwt_decode from 'jwt-decode';
 import { useDispatch } from 'react-redux';
 import { AUTH } from '../../reduxx/types';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from '../../hooks';
+import { signUp, signIn } from '../../reduxx/actions/auth';
+
+const initialState = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+};
 
 const Auth = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
+  const [form, setForm] = useForm(initialState);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const classes = useStyles();
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  const handleChange = () => {};
+    if (isSignUp) {
+      dispatch(signUp(form, navigate));
+    } else {
+      dispatch(signIn(form, navigate));
+    }
+  };
+
+  const handleChange = (e) => {
+    setForm([e.target.name], e.target.value);
+  };
 
   const handleShowPassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
