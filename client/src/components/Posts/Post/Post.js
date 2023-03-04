@@ -10,7 +10,7 @@ import {
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import useStyles from './styles';
 import DeleteIcon from '@material-ui/icons/Delete';
-import MoreHorizeIcon from '@material-ui/icons/MoreHoriz';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import { deletePost, likePost } from '../../../reduxx/actions/posts';
@@ -25,7 +25,7 @@ const Post = ({ post, setCurrentId }) => {
   const Likes = () => {
     if (post.likes.length > 0) {
       return post.likes.find(
-        (like) => like === (post?.dataLogin?.jti || post?.dataLogin?._id)
+        (like) => like === (post?.dataLogin?.sub || post?.dataLogin?._id)
       ) ? (
         <>
           <ThumbUpAltIcon fontSize="small" />
@@ -63,20 +63,18 @@ const Post = ({ post, setCurrentId }) => {
           {moment(post.createdAt).fromNow()}
         </Typography>
       </div>
-      {user?.dataLogin?.jti === post?.creator ||
-        (user?.dataLogin?._id === post?.creator && (
-          <div className={classes.overlay2}>
-            <Button
-              style={{ color: 'white' }}
-              size="small"
-              onClick={() => {
-                setCurrentId(post._id);
-              }}
-            >
-              <MoreHorizeIcon fontSize="medium" />
-            </Button>
-          </div>
-        ))}
+      {(user?.dataLogin?.sub === post?.creator ||
+        user?.dataLogin?._id === post?.creator) && (
+        <div className={classes.overlay2}>
+          <Button
+            onClick={() => setCurrentId(post._id)}
+            style={{ color: 'white' }}
+            size="small"
+          >
+            <MoreHorizIcon fontSize="default" />
+          </Button>
+        </div>
+      )}
 
       <div className={classes.details}>
         <Typography variant="body2" color="textSecondary">
@@ -102,19 +100,16 @@ const Post = ({ post, setCurrentId }) => {
         >
           <Likes />
         </Button>
-        {user?.dataLogin?.jti === post?.creator ||
-          (user?.dataLogin?._id === post?.creator && (
-            <Button
-              size="small"
-              color="primary"
-              onClick={() => {
-                dispatch(deletePost(post._id));
-              }}
-            >
-              <DeleteIcon fontSize="small" />
-              Delete
-            </Button>
-          ))}
+        {(user?.dataLogin?.sub === post?.creator ||
+          user?.dataLogin?._id === post?.creator) && (
+          <Button
+            size="small"
+            color="secondary"
+            onClick={() => dispatch(deletePost(post._id))}
+          >
+            <DeleteIcon fontSize="small" /> Delete
+          </Button>
+        )}
       </CardActions>
     </Card>
   );
