@@ -22,7 +22,7 @@ const Navbar = () => {
 
   const onLogOut = () => {
     dispatch({ type: LOGOUT });
-    navigate('/auth');
+    // navigate('/');
     setUser(null);
   };
 
@@ -46,13 +46,13 @@ const Navbar = () => {
           <div className={classes.profile}>
             <Avatar
               className={classes.purple}
-              alt={user?.result.name}
-              src={user?.result.picture}
+              alt={user?.dataLogin.name}
+              src={user?.dataLogin.picture}
             >
-              {user?.result.name.charAt(0)}
+              {user?.dataLogin.name.charAt(0)}
             </Avatar>
             <Typography className={classes.userName} variant="h6">
-              {user.result.name}
+              {user.dataLogin.name}
             </Typography>
             <Button
               variant="contained"

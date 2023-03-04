@@ -60,11 +60,11 @@ const Auth = () => {
   };
 
   const googleSuccess = async (credentialResponse) => {
-    const token = credentialResponse?.credential;
-    const result = jwt_decode(token);
+    const credential = credentialResponse?.credential;
+    const dataLogin = jwt_decode(credential);
 
     try {
-      dispatch({ type: AUTH, data: { result, token } });
+      dispatch({ type: AUTH, data: { dataLogin, credential } });
       navigate('/');
     } catch (error) {}
   };
