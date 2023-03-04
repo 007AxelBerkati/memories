@@ -97,7 +97,7 @@ export const likePost = async (req, res) => {
   const post = await PostMessage.findById(id);
 
   // Melakukan pencarian id dari user pada array likes pada variabel post dan menyimpan indeks hasil pencarian ke dalam variabel index
-  const index = post.likes.fintIndex((id) => id === String(req.userId));
+  const index = post.likes.findIndex((id) => id === String(req.userId));
 
   // Jika indeks tidak ditemukan (-1), maka push id user ke dalam array likes pada variabel post
   if (index === -1) {
