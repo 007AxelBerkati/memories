@@ -1,88 +1,72 @@
-// This function handles the sign-in logic
-import bycrypt from 'bcryptjs';
+/* Importing necessary modules */
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import UserModel from '../models/users.js';
 
-import User from '../models/users.js';
+/* Secret word used as salt to hash the password and generate token*/
+const secret = 'test';
 
+/* function for signin a user with email and password */
 export const signin = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // Check if user with this email exists in the database
-    const existingUser = await User.FindOne({ email });
+    /* finding user with the provided email in DB */
+    const oldUser = await UserModel.findOne({ email });
 
-    if (!existingUser)
-      return res.status(404).json({ message: "User doesn't exist." });
+    if (!oldUser)
+      return res.status(404).json({ message: "User doesn't exist" });
 
-    // Compare entered password with the hashed password stored in the database
-    const isPasswordCorrect = await bycrypt.compare(
-      password,
-      existingUser.password
-    );
+    /* verifying the password by matching with hashed password in DB */
+    const isPasswordCorrect = await bcrypt.compare(password, oldUser.password);
 
+    /* return error for invalid credentials */
     if (!isPasswordCorrect)
-      return res.status(400).json({ message: 'Invalid Credentials.' });
+      return res.status(400).json({ message: 'Invalid credentials' });
 
-    // Generate an authentication token for the user
-    const token = jwt.sign(
-      {
-        email: existingUser.email,
-        id: existingUser._id,
-      },
-      'test', // Secret key used to sign/verify the token
-      {
-        expiresIn: '1h', // Token expiration time
-      }
-    );
+    /* create a token with 1 hour of expiration time using the user email and _id */
+    const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, secret, {
+      expiresIn: '1h',
+    });
 
-    // Send a response when successful authentication
-    res.status(200).json({ dataLogin: existingUser, credential: token });
-  } catch (error) {
-    // Send a response when there's an error during authentication
-    res.status(500).json({ message: 'Something went wrong.' });
+    /* return the user details and credentials(token)*/
+    res.status(200).json({ dataLogin: oldUser, credential: token });
+  } catch (err) {
+    res.status(500).json({ message: 'Something went wrong' });
   }
 };
 
-// This function handles the sign-up logic
+/* function for signup/register a user with required fields */
 export const signup = async (req, res) => {
-  const { email, password, firstName, lastName, confirmPassword } = req.body;
+  const { email, password, firstName, lastName } = req.body;
 
   try {
-    // Check if user with this email already exists
-    const existingUser = await User.FindOne({ email });
-    if (existingUser)
-      return res.status(400).json({ message: 'User Already Exist.' });
+    /* checking if user already exists with the given email */
+    const oldUser = await UserModel.findOne({ email });
 
-    // Check if passwords match
-    if (password !== confirmPassword)
-      return res.status(400).json({ message: "Passwords don't match." });
+    if (oldUser)
+      return res.status(400).json({ message: 'User already exists' });
 
-    // Hash password before storing it in the database
-    const hashedPassword = await bycrypt.hash(password, 12);
+    /* hashing the password before saving it to DB*/
+    const hashedPassword = await bcrypt.hash(password, 12);
 
-    // Create new user in the database
-    const result = await User.create({
+    /* creating a new user with email, hashed password and name */
+    const result = await UserModel.create({
       email,
       password: hashedPassword,
       name: `${firstName} ${lastName}`,
     });
 
-    // Generate an authentication token for the user
-    const token = jwt.sign(
-      {
-        email: result.email,
-        id: result._id,
-      },
-      'test', // Secret key used to sign/verify the token
-      {
-        expiresIn: '1h', // Token expiration time
-      }
-    );
+    /* create a token with 1 hour of expiration time using the user email and _id */
+    const token = jwt.sign({ email: result.email, id: result._id }, secret, {
+      expiresIn: '1h',
+    });
 
-    // Send a response when successful sign up
-    res.status(200).json({ dataLogin: result, credential: token });
+    /* return the newly created user details and credentials(token)*/
+    res.status(201).json({ dataLogin: result, credential: token });
   } catch (error) {
-    // Send a response when there's an error during the sign-up process
-    res.status(500).json({ message: 'Something went wrong.' });
+    res.status(500).json({ message: 'Something went wrong' });
+
+    console.log(error);
   }
 };

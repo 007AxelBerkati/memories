@@ -16,7 +16,7 @@ import { useDispatch } from 'react-redux';
 import { AUTH } from '../../reduxx/types';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from '../../hooks';
-import { signUp, signIn } from '../../reduxx/actions/auth';
+import { signIn, signUp } from '../../reduxx/actions/auth';
 
 const initialState = {
   firstName: '',
@@ -56,15 +56,15 @@ const Auth = () => {
 
   const switchMode = () => {
     setIsSignUp((prevIsSignUp) => !prevIsSignUp);
-    handleShowPassword(false);
+    setShowPassword(false);
   };
 
   const googleSuccess = async (credentialResponse) => {
-    const credential = credentialResponse?.credential;
-    const dataLogin = jwt_decode(credential);
+    const token = credentialResponse?.credential;
+    const result = jwt_decode(token);
 
     try {
-      dispatch({ type: AUTH, data: { dataLogin, credential } });
+      dispatch({ type: AUTH, data: { result, token } });
       navigate('/');
     } catch (error) {}
   };

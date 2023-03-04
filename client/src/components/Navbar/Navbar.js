@@ -46,13 +46,13 @@ const Navbar = () => {
           <div className={classes.profile}>
             <Avatar
               className={classes.purple}
-              alt={user?.dataLogin.name}
-              src={user?.dataLogin.picture}
+              alt={user?.result.name}
+              src={user?.result.picture}
             >
-              {user?.dataLogin.name.charAt(0)}
+              {user?.result.name.charAt(0)}
             </Avatar>
             <Typography className={classes.userName} variant="h6">
-              {user.dataLogin.name}
+              {user.result.name}
             </Typography>
             <Button
               variant="contained"

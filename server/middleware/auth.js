@@ -1,40 +1,37 @@
-// Function untuk authentication menggunakan JWT token
+// Import library jwt
 import jwt from 'jsonwebtoken';
 
-// wants to like a post
-// click the like button => auth middleware(next) =>like controller
+// Define the token secret
+const secret = 'test';
 
+// Create auth middleware function that decode and verify token for each API access
 const auth = async (req, res, next) => {
   try {
-    // Mendapatkan token dari header
+    // Extract token from request headers
     const token = req.headers.authorization.split(' ')[1];
 
-    // Memeriksa apabila token merupakan custom authorization atau tidak
+    // Check if token is in the format of custom authentication or not
     const isCustomAuth = token.length < 500;
 
     let decodedData;
 
-    // Jika token merupakan custom authorization
+    // Verify token with the secret key
     if (token && isCustomAuth) {
-      // Menguji keaslian token
-      decodedData = jwt.verify(token, 'test');
+      decodedData = jwt.verify(token, secret);
 
-      // Menyimpan id user dalam request
       req.userId = decodedData?.id;
     } else {
-      // jika bukan custom authorization
-      // Mendecode data dari token
       decodedData = jwt.decode(token);
 
-      // Menyimpan subject user dalam request
       req.userId = decodedData?.sub;
     }
 
-    // Pindah ke middleware/endpoint selanjutnya
+    // Call next() to go to the next middleware / route handler
     next();
   } catch (error) {
-    console.log(error);
+    console.log(error); // Log error message if the token is invalid
   }
 };
 
+// Export auth middleware function for other code files to use
 export default auth;

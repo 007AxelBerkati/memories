@@ -1,10 +1,10 @@
 import { AUTH } from '../types';
 
-import * as api from '../../api/index';
+import * as api from '../../api/index.js';
 
 export const signIn = (form, navigate) => async (dispatch) => {
   try {
-    const { data } = await api.signIn();
+    const { data } = await api.signin(form);
     dispatch({ type: AUTH, data });
     navigate('/');
   } catch (error) {
@@ -14,7 +14,7 @@ export const signIn = (form, navigate) => async (dispatch) => {
 
 export const signUp = (form, navigate) => async (dispatch) => {
   try {
-    const { data } = await api.signUp();
+    const { data } = await api.signup(form);
     dispatch({ type: AUTH, data });
     navigate('/');
   } catch (error) {
