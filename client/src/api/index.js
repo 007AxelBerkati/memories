@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { backendAPI } from '../constant/environment';
 
 // const url = 'https://memorize-kappa.vercel.app/posts';
 
-const API = axios.create({ baseURL: 'http://localhost:5000' });
+const API = axios.create({ baseURL: backendAPI });
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem('profile')) {
