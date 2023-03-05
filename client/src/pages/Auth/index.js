@@ -8,7 +8,6 @@ import {
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import React, { useState } from 'react';
-import Input from './Input';
 import useStyles from './styles';
 import { GoogleLogin } from '@react-oauth/google';
 import jwt_decode from 'jwt-decode';
@@ -17,6 +16,8 @@ import { AUTH } from '../../reduxx/types';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from '../../hooks';
 import { signIn, signUp } from '../../reduxx/actions/auth';
+import { Input } from '../../components';
+import { googleClientId } from '../../constant/environment';
 
 const initialState = {
   firstName: '',
@@ -130,6 +131,7 @@ const Auth = () => {
           >
             {isSignUp ? 'Sign Up' : 'Sign In'}
           </Button>
+          <GoogleLogin onSuccess={googleSuccess} onError={googleFailed} />
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Button onClick={switchMode}>
@@ -137,7 +139,6 @@ const Auth = () => {
               </Button>
             </Grid>
           </Grid>
-          <GoogleLogin onSuccess={googleSuccess} onError={googleFailed} />
         </form>
       </Paper>
     </Container>
