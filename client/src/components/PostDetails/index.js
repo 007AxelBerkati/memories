@@ -11,6 +11,7 @@ import { useParams, useHistory, useNavigate } from 'react-router-dom';
 
 import useStyles from './styles';
 import { getPost, getPostsBySearch } from '../../reduxx/actions/posts';
+import CommentSection from './CommentSection';
 
 const Post = () => {
   const { post, posts, isLoading } = useSelector((state) => state.post);
@@ -21,7 +22,7 @@ const Post = () => {
 
   useEffect(() => {
     dispatch(getPost(id));
-  }, [id]);
+  }, [dispatch, id]);
 
   useEffect(() => {
     if (post) {
@@ -29,7 +30,7 @@ const Post = () => {
         getPostsBySearch({ search: 'none', tags: post?.tags.join(',') })
       );
     }
-  }, [post]);
+  }, [dispatch, post]);
 
   if (!post) return null;
 
@@ -73,7 +74,7 @@ const Post = () => {
           </Typography>
           <Divider style={{ margin: '20px 0' }} />
           <Typography variant="body1">
-            <strong>Comments - coming soon!</strong>
+            <CommentSection post={post} />
           </Typography>
           <Divider style={{ margin: '20px 0' }} />
         </div>
