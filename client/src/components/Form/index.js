@@ -6,11 +6,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './styles';
 
 import { createPost, updatePost } from '../../reduxx/actions/posts';
+import { useNavigate } from 'react-router-dom';
 
 const Form = ({ currentId, setCurrentId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem('profile'));
+  const navigate = useNavigate();
 
   const post = useSelector((state) =>
     currentId ? state.post.posts.find((p) => p._id === currentId) : null
@@ -45,7 +47,9 @@ const Form = ({ currentId, setCurrentId }) => {
         updatePost(currentId, { ...postData, name: user?.dataLogin?.name })
       );
     } else {
-      dispatch(createPost({ ...postData, name: user?.dataLogin?.name }));
+      dispatch(
+        createPost({ ...postData, name: user?.dataLogin?.name }, navigate)
+      );
     }
     clear();
   };
