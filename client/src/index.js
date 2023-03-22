@@ -6,6 +6,7 @@ import App from './App';
 import { store } from './reduxx/store';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { googleClientId } from './constant/environment';
+import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
