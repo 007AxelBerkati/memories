@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Card,
   CardActions,
@@ -19,11 +19,25 @@ import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined';
 import { useNavigate } from 'react-router-dom';
 
 const Post = ({ post, setCurrentId }) => {
+  const [likes, setLikes] = useState(post?.likes);
   const classes = useStyles();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const user = JSON.parse(localStorage.getItem('profile'));
-  const navigate = useNavigate();
+
+  const userId = user?.dataLogin.sub || user?.dataLogin?._id;
+  const hasLikedPost = post?.likes?.find((like) => like === userId);
+
+  const handleLike = async () => {
+    dispatch(likePost(post._id));
+
+    if (hasLikedPost) {
+      setLikes(post.likes.filter((id) => id !== userId));
+    } else {
+      setLikes([...post.likes, userId]);
+    }
+  };
 
   const Likes = () => {
     if (post.likes.length > 0) {
@@ -81,8 +95,8 @@ const Post = ({ post, setCurrentId }) => {
             {moment(post.createdAt).fromNow()}
           </Typography>
         </div>
-        {(user?.result?.googleId === post?.creator ||
-          user?.result?._id === post?.creator) && (
+        {(user?.dataLogin?.sub === post?.creator ||
+          user?.dataLogin?._id === post?.creator) && (
           <div className={classes.overlay2} name="edit">
             <Button
               onClick={(e) => {
@@ -92,7 +106,7 @@ const Post = ({ post, setCurrentId }) => {
               style={{ color: 'white' }}
               size="small"
             >
-              <MoreHorizIcon fontSize="default" />
+              <MoreHorizIcon fontSize="medium" />
             </Button>
           </div>
         )}
@@ -119,13 +133,13 @@ const Post = ({ post, setCurrentId }) => {
         <Button
           size="small"
           color="primary"
-          disabled={!user?.result}
-          onClick={() => dispatch(likePost(post._id))}
+          disabled={!user?.dataLogin}
+          onClick={handleLike}
         >
           <Likes />
         </Button>
-        {(user?.result?.googleId === post?.creator ||
-          user?.result?._id === post?.creator) && (
+        {(user?.dataLogin?.sub === post?.creator ||
+          user?.dataLogin?._id === post?.creator) && (
           <Button
             size="small"
             color="secondary"
