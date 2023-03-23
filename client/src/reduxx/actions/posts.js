@@ -5,6 +5,7 @@ import {
   DELETE,
   END_LOADING,
   FETCH_ALL,
+  FETCH_BY_CREATOR,
   FETCH_BY_SEARCH,
   FETCH_POST,
   LIKE,
@@ -110,6 +111,20 @@ export const commentPost = (value, id) => async (dispatch) => {
     dispatch({ type: COMMENT, payload: data });
 
     return data.comments;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getPostsByCreator = (name) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LOADING });
+    const {
+      data: { data },
+    } = await api.fetchPostsByCreator(name);
+
+    dispatch({ type: FETCH_BY_CREATOR, payload: { data } });
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);
   }
