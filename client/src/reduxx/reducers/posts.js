@@ -4,6 +4,7 @@ import {
   DELETE,
   END_LOADING,
   FETCH_ALL,
+  FETCH_BY_CREATOR,
   FETCH_BY_SEARCH,
   FETCH_POST,
   LIKE,
@@ -33,6 +34,8 @@ export const postReducer = (state = initialStatePost, action) => {
       return { ...state, posts: action.payload.data };
     case FETCH_POST:
       return { ...state, post: action.payload.post };
+    case FETCH_BY_CREATOR:
+      return { ...state, posts: action.payload.data };
     case LIKE:
       return {
         ...state,
