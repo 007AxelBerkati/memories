@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core/';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
-import { useParams, useHistory, useNavigate } from 'react-router-dom';
+import { useParams, useHistory, useNavigate, Link } from 'react-router-dom';
 
 import useStyles from './styles';
 import { getPost, getPostsBySearch } from '../../reduxx/actions/posts';
@@ -59,12 +59,27 @@ const Post = () => {
             color="textSecondary"
             component="h2"
           >
-            {post.tags.map((tag) => `#${tag} `)}
+            {post.tags.map((tag) => (
+              <Link
+                to={`/tags/${tag}`}
+                style={{ textDecoration: 'none', color: '#3f51b5' }}
+              >
+                {` #${tag} `}
+              </Link>
+            ))}
           </Typography>
           <Typography gutterBottom variant="body1" component="p">
             {post.message}
           </Typography>
-          <Typography variant="h6">Created by: {post.name}</Typography>
+          <Typography variant="h6">
+            Created by:
+            <Link
+              to={`/creators/${post.name}`}
+              style={{ textDecoration: 'none', color: '#3f51b5' }}
+            >
+              {` ${post.name}`}
+            </Link>
+          </Typography>
           <Typography variant="body1">
             {moment(post.createdAt).fromNow()}
           </Typography>
@@ -73,9 +88,7 @@ const Post = () => {
             <strong>Realtime Chat - coming soon!</strong>
           </Typography>
           <Divider style={{ margin: '20px 0' }} />
-          <Typography variant="body1">
-            <CommentSection post={post} />
-          </Typography>
+          <CommentSection post={post} />
           <Divider style={{ margin: '20px 0' }} />
         </div>
         <div className={classes.imageSection}>
