@@ -19,6 +19,7 @@ export default makeStyles((theme) => ({
     borderRadius: '20px',
     margin: '10px',
     flex: 1,
+    color: 'white',
   },
   imageSection: {
     marginLeft: '20px',
@@ -39,14 +40,48 @@ export default makeStyles((theme) => ({
     padding: '20px',
     borderRadius: '15px',
     height: '39vh',
+    backgroundColor: '#1E1F23',
   },
   commentsOuterContainer: {
     display: 'flex',
     justifyContent: 'space-between',
+    borderColor: 'white',
+    borderWidth: '1px',
   },
   commentsInnerContainer: {
     height: '200px',
     overflowY: 'auto',
     marginRight: '30px',
+    borderColor: 'white',
+    borderWidth: '1px',
+  },
+
+  input: {
+    backgroundColor: '#27282F',
+    '& label': {
+      color: '#94959C',
+    },
+    '& label.Mui-focused': {
+      color: '#94959C',
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: 'yellow',
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: '#31323B',
+      },
+      '&:hover fieldset': {
+        borderColor: 'white',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'blue',
+      },
+    },
+  },
+  button: {
+    '&:disabled': {
+      backgroundColor: '#85868A' || 'red',
+    },
   },
 }));

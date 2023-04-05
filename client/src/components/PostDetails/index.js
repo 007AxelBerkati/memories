@@ -47,7 +47,14 @@ const Post = () => {
   const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
 
   return (
-    <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
+    <Paper
+      style={{
+        padding: '20px',
+        borderRadius: '15px',
+        backgroundColor: '#1E1F23',
+      }}
+      elevation={6}
+    >
       <div className={classes.card}>
         <div className={classes.section}>
           <Typography variant="h3" component="h2">
@@ -87,9 +94,9 @@ const Post = () => {
           <Typography variant="body1">
             <strong>Realtime Chat - coming soon!</strong>
           </Typography>
-          <Divider style={{ margin: '20px 0' }} />
+          <Divider style={{ margin: '20px 0', background: '#2A86FF' }} />
           <CommentSection post={post} />
-          <Divider style={{ margin: '20px 0' }} />
+          <Divider style={{ margin: '20px 0', background: '#2A86FF' }} />
         </div>
         <div className={classes.imageSection}>
           <img
@@ -128,7 +135,7 @@ const Post = () => {
                   <Typography gutterBottom variant="subtitle1">
                     Likes: {likes.length}
                   </Typography>
-                  <img src={selectedFile} width="200px" />
+                  <img src={selectedFile} width="200px" alt="images" />
                 </div>
               )
             )}
