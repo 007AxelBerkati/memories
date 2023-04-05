@@ -8,6 +8,8 @@ export default makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
+    backgroundColor: '#1E1F23',
+    color: 'white',
   },
   form: {
     display: 'flex',
@@ -20,5 +22,28 @@ export default makeStyles((theme) => ({
   },
   buttonSubmit: {
     marginBottom: 10,
+  },
+  input: {
+    backgroundColor: '#27282F',
+    '& label': {
+      color: '#94959C',
+    },
+    '& label.Mui-focused': {
+      color: '#94959C',
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: 'yellow',
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: '#31323B',
+      },
+      '&:hover fieldset': {
+        borderColor: 'white',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'blue',
+      },
+    },
   },
 }));

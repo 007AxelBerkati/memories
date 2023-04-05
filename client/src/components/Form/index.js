@@ -80,6 +80,8 @@ const Form = ({ currentId, setCurrentId }) => {
           name="titile"
           variant="outlined"
           label="Title"
+          inputProps={{ style: { color: 'white', borderColor: '#292A31' } }}
+          className={classes.input}
           fullWidth
           value={postData.title}
           onChange={(e) => setPostData({ ...postData, title: e.target.value })}
@@ -88,8 +90,10 @@ const Form = ({ currentId, setCurrentId }) => {
           name="message"
           variant="outlined"
           label="Message"
+          className={classes.input}
           fullWidth
           value={postData.message}
+          inputProps={{ style: { color: 'white' } }}
           onChange={(e) =>
             setPostData({ ...postData, message: e.target.value })
           }
@@ -99,7 +103,9 @@ const Form = ({ currentId, setCurrentId }) => {
           variant="outlined"
           label="Tags"
           fullWidth
+          className={classes.input}
           value={postData.tags}
+          inputProps={{ style: { color: 'white' } }}
           onChange={(e) =>
             setPostData({ ...postData, tags: e.target.value.split(',') })
           }
@@ -125,6 +131,7 @@ const Form = ({ currentId, setCurrentId }) => {
         </Button>
         <Button
           variant="contained"
+          className={classes.buttonSubmit}
           color="secondary"
           size="small"
           fullWidth
