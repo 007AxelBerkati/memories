@@ -20,6 +20,7 @@ export default makeStyles({
     borderRadius: '15px',
     height: '100%',
     position: 'relative',
+    backgroundColor: '#1E1F23',
   },
   overlay: {
     position: 'absolute',
@@ -40,9 +41,11 @@ export default makeStyles({
     display: 'flex',
     justifyContent: 'space-between',
     margin: '20px',
+    color: 'white',
   },
   title: {
     padding: '0 16px',
+    color: 'white',
   },
   cardActions: {
     padding: '0 16px 8px 16px',

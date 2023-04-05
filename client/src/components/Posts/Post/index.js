@@ -45,7 +45,7 @@ const Post = ({ post, setCurrentId }) => {
         (like) => like === (post?.dataLogin?.sub || post?.dataLogin?._id)
       ) ? (
         <>
-          <ThumbUpAltIcon fontSize="small" />
+          <ThumbUpAltIcon style={{ color: '#2A86FF' }} fontSize="small" />
           &nbsp;
           {post.likes.length > 2
             ? `You and ${post.likes.length - 1} others`
@@ -53,7 +53,7 @@ const Post = ({ post, setCurrentId }) => {
         </>
       ) : (
         <>
-          <ThumbUpAltOutlined fontSize="small" />
+          <ThumbUpAltOutlined fontSize="small" style={{ color: '#2A86FF' }} />
           &nbsp;{post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}
         </>
       );
@@ -91,7 +91,7 @@ const Post = ({ post, setCurrentId }) => {
         />
         <div className={classes.overlay}>
           <Typography variant="h6">{post.name}</Typography>
-          <Typography variant="body2">
+          <Typography variant="body2" style={{ color: '#8D8E92' }}>
             {moment(post.createdAt).fromNow()}
           </Typography>
         </div>
@@ -111,7 +111,7 @@ const Post = ({ post, setCurrentId }) => {
           </div>
         )}
         <div className={classes.details}>
-          <Typography variant="body2" color="textSecondary" component="h2">
+          <Typography variant="body2" component="h2">
             {post.tags.map((tag) => `#${tag} `)}
           </Typography>
         </div>
@@ -124,7 +124,12 @@ const Post = ({ post, setCurrentId }) => {
           {post.title}
         </Typography>
         <CardContent>
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            component="p"
+            style={{ color: 'white' }}
+          >
             {post.message.split(' ').splice(0, 20).join(' ')}...
           </Typography>
         </CardContent>
