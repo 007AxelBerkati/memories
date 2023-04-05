@@ -81,6 +81,10 @@ const Home = () => {
                 name="search"
                 variant="outlined"
                 label="Search Memories"
+                inputProps={{
+                  style: { color: 'white', borderColor: '#292A31' },
+                }}
+                className={classes.input}
                 fullWidth
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
@@ -88,6 +92,10 @@ const Home = () => {
               <ChipInput
                 style={{ margin: '10px 0' }}
                 value={tags}
+                inputProps={{
+                  style: { color: 'white', borderColor: '#292A31' },
+                }}
+                className={classes.input}
                 onAdd={(chip) => handleAddChip(chip)}
                 onDelete={(chip) => handleDeleteChip(chip)}
                 label="Search Tags"
