@@ -36,7 +36,7 @@ const Navbar = () => {
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
       <div className={classes.brandContainer}>
-        <Link to={'/'}>
+        <Link to={'/'} style={{ textDecoration: 'none' }}>
           <Typography className={classes.heading} variant="h2" align="center">
             Memories
           </Typography>
