@@ -46,6 +46,10 @@ const CommentSection = ({ post }) => {
             minRows={4}
             variant="outlined"
             label="Comment"
+            inputProps={{
+              style: { color: 'white', borderColor: '#292A31' },
+            }}
+            className={classes.input}
             multiline
             value={comment}
             onChange={(e) => setComment(e.target.value)}
@@ -58,6 +62,7 @@ const CommentSection = ({ post }) => {
             color="primary"
             variant="contained"
             onClick={handleComment}
+            className={classes.button}
           >
             Comment
           </Button>
