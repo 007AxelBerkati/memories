@@ -7,6 +7,8 @@ import {
   Button,
   Typography,
   ButtonBase,
+  Modal,
+  Box,
 } from '@material-ui/core';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import useStyles from './styles';
@@ -23,6 +25,7 @@ const Post = ({ post, setCurrentId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
   const user = JSON.parse(localStorage.getItem('profile'));
 
@@ -68,8 +71,6 @@ const Post = ({ post, setCurrentId }) => {
   };
 
   const openPost = (e) => {
-    // dispatch(getPost(post._id, history));
-
     navigate(`/posts/${post._id}`);
   };
 
@@ -90,7 +91,17 @@ const Post = ({ post, setCurrentId }) => {
           title={post.title}
         />
         <div className={classes.overlay}>
-          <Typography variant="h6">{post.name}</Typography>
+          <Typography
+            variant="h6"
+            style={{
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              maxWidth: 150,
+            }}
+          >
+            {post.name}
+          </Typography>
           <Typography variant="body2" style={{ color: '#8D8E92' }}>
             {moment(post.createdAt).fromNow()}
           </Typography>
@@ -145,13 +156,66 @@ const Post = ({ post, setCurrentId }) => {
         </Button>
         {(user?.dataLogin?.sub === post?.creator ||
           user?.dataLogin?._id === post?.creator) && (
-          <Button
-            size="small"
-            color="secondary"
-            onClick={() => dispatch(deletePost(post._id))}
-          >
-            <DeleteIcon fontSize="small" /> &nbsp; Delete
-          </Button>
+          <>
+            <Button
+              size="small"
+              color="secondary"
+              onClick={() => {
+                setOpen(true);
+              }}
+            >
+              <DeleteIcon fontSize="small" /> &nbsp; Delete
+            </Button>
+            <Modal
+              open={open}
+              onClose={() => setOpen(false)}
+              aria-labelledby="simple-modal-title"
+              aria-describedby="simple-modal-description"
+            >
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  minHeight: '100vh',
+                }}
+              >
+                <Box
+                  sx={{
+                    width: 400,
+                    backgroundColor: '#1E1F23',
+                    justifyContent: 'center',
+                    textAlign: 'center',
+                    padding: 30,
+                  }}
+                >
+                  <h2 id="parent-modal-title" style={{ color: 'white' }}>
+                    Are You Sure You Want To Delete This Memory?
+                  </h2>
+                  <div
+                    style={{ display: 'flex', justifyContent: 'space-around' }}
+                  >
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => {
+                        dispatch(deletePost(post._id));
+                      }}
+                    >
+                      yes
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={() => setOpen(false)}
+                    >
+                      No
+                    </Button>
+                  </div>
+                </Box>
+              </Box>
+            </Modal>
+          </>
         )}
       </CardActions>
     </Card>
