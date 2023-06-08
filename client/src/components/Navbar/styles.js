@@ -24,10 +24,11 @@ export default makeStyles((theme) => ({
     justifyContent: 'flex-end',
     width: '400px',
   },
+
   profile: {
     display: 'flex',
     justifyContent: 'space-between',
-    width: '400px',
+    padding: '10px',
   },
   userName: {
     display: 'flex',
@@ -41,5 +42,13 @@ export default makeStyles((theme) => ({
   purple: {
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
+  },
+
+  small: {
+    width: '200px',
+  },
+
+  large: {
+    width: '400px',
   },
 }));

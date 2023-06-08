@@ -1,4 +1,14 @@
-import { AppBar, Avatar, Button, Toolbar, Typography } from '@material-ui/core';
+import {
+  AppBar,
+  Avatar,
+  Box,
+  Button,
+  Hidden,
+  Toolbar,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import useStyles from './styles';
 import memories from '../../assets/memories.png';
@@ -9,11 +19,14 @@ import decode from 'jwt-decode';
 
 const Navbar = () => {
   const classes = useStyles();
+  const theme = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const onLogOut = () => {
     dispatch({ type: LOGOUT });
@@ -37,9 +50,11 @@ const Navbar = () => {
     <AppBar className={classes.appBar} position="static" color="inherit">
       <div className={classes.brandContainer}>
         <Link to={'/'} style={{ textDecoration: 'none' }}>
-          <Typography className={classes.heading} variant="h2" align="center">
-            Memories
-          </Typography>
+          <Hidden smDown>
+            <Typography className={classes.heading} variant="h2" align="center">
+              Memories
+            </Typography>
+          </Hidden>
         </Link>
         <img
           src={memories}
@@ -50,7 +65,11 @@ const Navbar = () => {
       </div>
       <Toolbar className={classes.toolbar}>
         {user ? (
-          <div className={classes.profile}>
+          <Box
+            className={`${classes.profile} ${
+              isSmallScreen ? classes.small : classes.large
+            } `}
+          >
             <Avatar
               className={classes.purple}
               alt={user?.dataLogin.name}
@@ -58,18 +77,15 @@ const Navbar = () => {
             >
               {user?.dataLogin.name.charAt(0)}
             </Avatar>
-            <Typography className={classes.userName} variant="h6">
-              {user.dataLogin.name}
-            </Typography>
-            <Button
-              variant="contained"
-              className={classes.logout}
-              color="secondary"
-              onClick={onLogOut}
-            >
+            <Hidden smDown>
+              <Typography className={classes.userName} variant="h6">
+                {user.dataLogin.name}
+              </Typography>
+            </Hidden>
+            <Button variant="contained" color="secondary" onClick={onLogOut}>
               Logout
             </Button>
-          </div>
+          </Box>
         ) : (
           <Button
             variant="contained"
